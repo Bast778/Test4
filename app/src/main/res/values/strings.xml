@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Test4</string>
+    <string name="Smile">Vous avez le Smile :)</string>
+    <string name="NoSmile">Vous navez pas le Smile :(</string>
+    <string name="Mood">Describe your current mood</string>
+    <string name="Positivebutton">Save Mood</string>
+    <string name="NegativeButton">Cancel</string>
+</resources>
