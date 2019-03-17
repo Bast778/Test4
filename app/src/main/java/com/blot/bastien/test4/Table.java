@@ -23,4 +23,12 @@ public class Table {
     public ArrayList<Smile> getSmiles() {
         return smiles;
     }
+
+    public int getSmileIndex (Smile smiley) {
+        for (int i = 0; i < smiles.size(); i++) {
+            if (smiles.get(i).getImages() == smiley.getImages()) return i;
+
+        }
+        return 0;
+    }
 }

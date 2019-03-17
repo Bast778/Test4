@@ -1,3 +1,4 @@
+
 package com.blot.bastien.test4;
 
 import android.content.DialogInterface;
@@ -16,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -31,18 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private String mCurrentMoodComment;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Enregistrement de la date du jour à l'ouverture de l'application
-        SimpleDateFormat format = new SimpleDateFormat("YYYYMMdd");
-        String key3 = format.format(new Date(System.currentTimeMillis()));
-        mPreferences.edit().putString(key3, null);
-        if (key3 == key) {
-            String humeurchoisi = mPreferences.getString(key, null);
-        }
         // Creation des Smiley avec couleurs + images + musiques
         mTable = new Table();
         final Smile happy = new Smile(R.drawable.smiley_happy, R.color.light_sage,R.raw.happy);
@@ -75,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 MediaPlayer.create(getApplicationContext(), smile.getMusics()).start();
                 mPreferences.edit().putString(key, smile.tojson()).apply();
 
-                }
+            }
 
 
 
@@ -110,18 +105,25 @@ public class MainActivity extends AppCompatActivity {
                 /* Specify the type of input expected; caps for new sentences */
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
                 builder.setView(input);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMdd");
+                String key4 = simpleDateFormat.format(new Date(System.currentTimeMillis())) + "_comment";
+                String preferenceComment = mPreferences.getString(key4, null);
+                if (preferenceComment != null) {
+                    input.setHint(preferenceComment);
+                    }
+
 
                 /* "Ok"  button */
                 builder.setPositiveButton(R.string.Positivebutton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(),R.string.Smile, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.Smile, Toast.LENGTH_SHORT).show();
                         mCurrentMoodComment = input.getText().toString();
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMdd");
-                        String key2 = simpleDateFormat.format(new Date(System.currentTimeMillis()));
-                        Log.d(Tag,key2);
-                        mPreferences.edit().putString(key2,mCurrentMoodComment).apply();
-                        }
+                        String key2 = simpleDateFormat.format(new Date(System.currentTimeMillis())) + "_comment";
+                        Log.d(Tag, key2);
+                        mPreferences.edit().putString(key2, mCurrentMoodComment).apply();
+                    }
                 });
 
                 /* "Cancel"  button */
@@ -137,6 +139,18 @@ public class MainActivity extends AppCompatActivity {
         });
         myCustomPagerAdapter = new MyCustomPageAdapter(MainActivity.this,mTable);
         mVerticalViewPager.setAdapter(myCustomPagerAdapter);
+
+        // Enregistrement de la date du jour à l'ouverture de l'application
+        SimpleDateFormat format = new SimpleDateFormat("YYYYMMdd");
+        String key3 = format.format(new Date(System.currentTimeMillis()));
+        String preferenceMood = mPreferences.getString(key3,null);
+        if (preferenceMood != null){
+            Gson gson = new Gson();
+            Smile smile = gson.fromJson(preferenceMood,Smile.class);
+            int index = mTable.getSmileIndex(smile);
+            mVerticalViewPager.setCurrentItem(index);
+            }
+        }
     }
 
-}
+
