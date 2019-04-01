@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Table mTable;
     private SharedPreferences mPreferences;
     private String mCurrentMoodComment;
+    private String mMainYesterdayComment;
 
 
     @Override
@@ -40,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Creation des Smiley avec couleurs + images + musiques
         mTable = new Table();
-        final Smile happy = new Smile(R.drawable.smiley_happy, R.color.light_sage,R.raw.happy);
-        Smile superhappy = new Smile(R.drawable.smiley_super_happy, R.color.banana_yellow,R.raw.super_happy);
-        Smile sad = new Smile(R.drawable.smiley_sad, R.color.faded_red,R.raw.sad);
-        Smile normal = new Smile(R.drawable.smiley_normal, R.color.cornflower_blue_65,R.raw.normal);
-        Smile disappointed = new Smile(R.drawable.smiley_disappointed, R.color.warm_grey,R.raw.disappointed);
+        final Smile happy = new Smile(R.drawable.smiley_happy, R.color.light_sage, R.raw.happy);
+        Smile superhappy = new Smile(R.drawable.smiley_super_happy, R.color.banana_yellow, R.raw.super_happy);
+        Smile sad = new Smile(R.drawable.smiley_sad, R.color.faded_red, R.raw.sad);
+        Smile normal = new Smile(R.drawable.smiley_normal, R.color.cornflower_blue_65, R.raw.normal);
+        Smile disappointed = new Smile(R.drawable.smiley_disappointed, R.color.warm_grey, R.raw.disappointed);
         // Ajout des Smiley + couleurs + musiques dans la classe Smile
         mTable.addSmile(happy);
         mTable.addSmile(superhappy);
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         mTable.addSmile(normal);
         mTable.addSmile(disappointed);
         // Mes preferences enregistrés
-        mPreferences = getPreferences(MODE_PRIVATE);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // Mon Vertical Viewpager
         mVerticalViewPager = findViewById(R.id.verticalViewPager);
         mVerticalViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -71,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 mPreferences.edit().putString(key, smile.tojson()).apply();
 
             }
-
-
 
 
             @Override
@@ -105,12 +105,13 @@ public class MainActivity extends AppCompatActivity {
                 /* Specify the type of input expected; caps for new sentences */
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
                 builder.setView(input);
+                // Affichage du commentaire de l'utilisateur pendant 24h
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMdd");
                 String key4 = simpleDateFormat.format(new Date(System.currentTimeMillis())) + "_comment";
                 String preferenceComment = mPreferences.getString(key4, null);
                 if (preferenceComment != null) {
                     input.setHint(preferenceComment);
-                    }
+                }
 
 
                 /* "Ok"  button */
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getApplicationContext(), R.string.Smile, Toast.LENGTH_SHORT).show();
+                        // Enregistrement du commentaire du jour
                         mCurrentMoodComment = input.getText().toString();
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMdd");
                         String key2 = simpleDateFormat.format(new Date(System.currentTimeMillis())) + "_comment";
@@ -137,20 +139,23 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
             }
         });
-        myCustomPagerAdapter = new MyCustomPageAdapter(MainActivity.this,mTable);
+        myCustomPagerAdapter = new MyCustomPageAdapter(MainActivity.this, mTable);
         mVerticalViewPager.setAdapter(myCustomPagerAdapter);
+
 
         // Enregistrement de la date du jour à l'ouverture de l'application
         SimpleDateFormat format = new SimpleDateFormat("YYYYMMdd");
         String key3 = format.format(new Date(System.currentTimeMillis()));
-        String preferenceMood = mPreferences.getString(key3,null);
-        if (preferenceMood != null){
+        String preferenceMood = mPreferences.getString(key3, null);
+        if (preferenceMood != null) {
             Gson gson = new Gson();
-            Smile smile = gson.fromJson(preferenceMood,Smile.class);
+            Smile smile = gson.fromJson(preferenceMood, Smile.class);
             int index = mTable.getSmileIndex(smile);
             mVerticalViewPager.setCurrentItem(index);
-            }
+
         }
     }
+}
+
 
 
