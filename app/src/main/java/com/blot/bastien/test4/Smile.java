@@ -8,6 +8,7 @@ public class Smile {
     private int images;
     private int colors;
     private int musics;
+    private String day;
 
     public Smile (int images, int colors, int musics){
         this.images = images;
@@ -31,6 +32,13 @@ public class Smile {
         return new Gson().toJson(this);
     }
 
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
 
     @Override
     public String toString() {
@@ -38,6 +46,7 @@ public class Smile {
                 "images=" + images +
                 ", colors=" + colors +
                 ", musics=" + musics +
+                ", day='" + day + '\'' +
                 '}';
     }
 }

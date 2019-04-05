@@ -2,27 +2,25 @@ package com.blot.bastien.test4;
 
 public class List {
 
-    protected String mDayName;
+    protected int mSmiley;
     protected int mMoodColor;
     protected String mMoodText;
 
 
 
-    public List (String mDayName, int mMoodColor, String mMoodText) {
-        this.mDayName = mDayName;
+    public List (int mSmiley, int mMoodColor, String mMoodText) {
+        this.mSmiley = mSmiley;
         this.mMoodColor = mMoodColor;
         this.mMoodText = mMoodText;
 
-
-
     }
 
-    public String getDayName() {
-        return mDayName;
+    public int getSmiley() {
+        return mSmiley;
     }
 
-    public void setDayName(String dayName) {
-        mDayName = dayName;
+    public void setSmiley(int smiley) {
+        mSmiley = smiley;
     }
 
     public int getMoodColor() {
@@ -44,7 +42,7 @@ public class List {
     @Override
     public String toString() {
         return "List{" +
-                "mDayName='" + mDayName + '\'' +
+                "mSmiley='" + mSmiley + '\'' +
                 ", mMoodColor=" + mMoodColor +
                 ", mMoodText='" + mMoodText + '\'' +
                 '}';
