@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 String key4 = simpleDateFormat.format(new Date(System.currentTimeMillis())) + "_comment";
                 String preferenceComment = mPreferences.getString(key4, null);
                 if (preferenceComment != null) {
-                    input.setHint(preferenceComment);
+                    input.setText(preferenceComment);
                 }
 
 

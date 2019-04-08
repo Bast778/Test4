@@ -55,7 +55,6 @@ public class HistoryActivity extends AppCompatActivity {
             Smile smile = gson.fromJson(value, Smile.class);
             smile.setDay(cle);
             strings.add(smile);
-            getCount(strings);
 
 
         }
@@ -65,17 +64,6 @@ public class HistoryActivity extends AppCompatActivity {
 
     }
 
-    public int getCount(ArrayList<Smile> strings) {
-        int count = 7;
-        int i = 0;
-        if (this.strings != null) {
-            if (count <= i) {
-                return this.strings.size();
-            }
-            return count;
-        }
-        return 0;
-    }
 
 
     //final ArrayAdapter<String> adapter = new ArrayAdapter<String>(HistoryActivity.this,
