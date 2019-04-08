@@ -1,8 +1,13 @@
 package com.blot.bastien.test4;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.google.gson.Gson;
 
 import java.io.Reader;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Smile {
     private int images;
@@ -49,5 +54,24 @@ public class Smile {
                 ", day='" + day + '\'' +
                 '}';
     }
+
+    private  static final String PREFS_NAME = "PRES_NAME";
+
+    public static SharedPreferences getSharedPreferences(Context context) {
+        return context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+    }
+
+    public static void saveInt(Context context, String key, int intValue) {
+        SharedPreferences sharedPreferences = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(key, intValue);
+        editor.apply();
+    }
+
+    public static   int loadInt( Context context, String key, int intDefaultValue) {
+        SharedPreferences sharedPreferences = getSharedPreferences(context);
+        return sharedPreferences.getInt(key, intDefaultValue);
+    }
 }
+
 

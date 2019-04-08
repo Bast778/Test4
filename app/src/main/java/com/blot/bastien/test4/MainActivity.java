@@ -34,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences mPreferences;
     private String mCurrentMoodComment;
     private String mMainYesterdayComment;
+    private int mScreenWidth;
+    private String SCREEN_WIDTH = "SCREEN_WIDTH";
+    private int mScreenHeight;
+    private String SCREEN_HEIGHT = "SCREEN_HEIGHT";
+
+
+
 
 
     @Override
@@ -118,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.Positivebutton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), R.string.Smile, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.Positive, Toast.LENGTH_SHORT).show();
                         // Enregistrement du commentaire du jour
                         mCurrentMoodComment = input.getText().toString();
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMdd");
@@ -132,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setNegativeButton(R.string.NegativeButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), R.string.NoSmile, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.Negative, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -154,8 +161,15 @@ public class MainActivity extends AppCompatActivity {
             mVerticalViewPager.setCurrentItem(index);
 
         }
+
+        /* ScreenWidth in pixel */
+        mScreenWidth = getResources().getDisplayMetrics().widthPixels;
+        mScreenHeight = getResources().getDisplayMetrics().heightPixels;
+
+        System.out.println(mScreenWidth + mScreenHeight);
+        Smile.saveInt(MainActivity.this, SCREEN_WIDTH, mScreenWidth);
+        Smile.saveInt(MainActivity.this, SCREEN_HEIGHT, mScreenHeight);
     }
 }
-
 
 

@@ -47,21 +47,23 @@ public class HistoryActivity extends AppCompatActivity {
 
 
 
-            for (TreeMap.Entry<String, String> entry2 : hashString.entrySet()) {
-                String cle = entry2.getKey();
-                String value = entry2.getValue();
-                Gson gson = new Gson();
-                Smile smile = gson.fromJson(value, Smile.class);
-                smile.setDay(cle);
-                strings.add(smile);
-                getCount(strings);
+
+        for (TreeMap.Entry<String, String> entry2 : hashString.entrySet()) {
+            String cle = entry2.getKey();
+            String value = entry2.getValue();
+            Gson gson = new Gson();
+            Smile smile = gson.fromJson(value, Smile.class);
+            smile.setDay(cle);
+            strings.add(smile);
+            getCount(strings);
 
 
-            }
+        }
         ListHistory listHistory = new ListHistory(getApplicationContext(), R.layout.list_history, strings);
         mHistoryListView.setAdapter(listHistory);
 
-        }
+
+    }
 
     public int getCount(ArrayList<Smile> strings) {
         int count = 7;
@@ -76,13 +78,13 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
 
-        //final ArrayAdapter<String> adapter = new ArrayAdapter<String>(HistoryActivity.this,
-        //android.R.layout.simple_list_item_1, listmoods);
-        //mHistoryListView.setAdapter(adapter);
+    //final ArrayAdapter<String> adapter = new ArrayAdapter<String>(HistoryActivity.this,
+    //android.R.layout.simple_list_item_1, listmoods);
+    //mHistoryListView.setAdapter(adapter);
 
 
 
-    }
+}
 
 
 
