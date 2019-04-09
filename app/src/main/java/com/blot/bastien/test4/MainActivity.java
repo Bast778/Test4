@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        /* ScreenWidth in pixel */
+        // Taille de l'ecran du smartphone + sauvegarde
         mScreenWidth = getResources().getDisplayMetrics().widthPixels;
         mScreenHeight = getResources().getDisplayMetrics().heightPixels;
 

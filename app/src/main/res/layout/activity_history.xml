@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".HistoryActivity"
-    android:id="@+id/mt_history_linearlayout">
+    android:id="@+id/mt_history_linearlayout"
+    >
 
     <ListView
         android:id="@+id/mt_listview_layout"
-        android:background="@color/warm_grey"
+        android:background="@color/anthracite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"

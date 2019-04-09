@@ -35,42 +35,36 @@ public class HistoryActivity extends AppCompatActivity {
         Map<String, String> hashString = new TreeMap<>(Collections.reverseOrder());
 
 
+
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
             if (!entry.getKey().contains("_comment")) {
                 hashString.put(entry.getKey(), (String) entry.getValue());
             }
-
-
         }
 
         System.out.println(hashString);
 
+            int index = 0;
+            for (TreeMap.Entry<String, String> entry2 : hashString.entrySet()) {
+                String cle = entry2.getKey();
+                String value = entry2.getValue();
+                Gson gson = new Gson();
+                Smile smile = gson.fromJson(value, Smile.class);
+                smile.setDay(cle);
+                strings.add(smile);
+                index++;
+                if(index >= 7){
+                    break;
+                }
+            }
 
-
-
-        for (TreeMap.Entry<String, String> entry2 : hashString.entrySet()) {
-            String cle = entry2.getKey();
-            String value = entry2.getValue();
-            Gson gson = new Gson();
-            Smile smile = gson.fromJson(value, Smile.class);
-            smile.setDay(cle);
-            strings.add(smile);
-
-
-        }
+        //final ArrayAdapter<String> adapter = new ArrayAdapter<String>(HistoryActivity.this,
+        //android.R.layout.simple_list_item_1, listmoods);
+        //mHistoryListView.setAdapter(adapter);
         ListHistory listHistory = new ListHistory(getApplicationContext(), R.layout.list_history, strings);
         mHistoryListView.setAdapter(listHistory);
 
-
     }
-
-
-
-    //final ArrayAdapter<String> adapter = new ArrayAdapter<String>(HistoryActivity.this,
-    //android.R.layout.simple_list_item_1, listmoods);
-    //mHistoryListView.setAdapter(adapter);
-
-
 
 }
 

@@ -54,6 +54,7 @@ public class Smile {
                 ", day='" + day + '\'' +
                 '}';
     }
+    //Enregistrement de la taille de l'ecran du smartphone
 
     private  static final String PREFS_NAME = "PRES_NAME";
 

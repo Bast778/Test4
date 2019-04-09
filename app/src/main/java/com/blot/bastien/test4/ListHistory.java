@@ -100,21 +100,21 @@ public class ListHistory extends ArrayAdapter {
             final int mScreenHeight = Smile.loadInt(context, "SCREEN_HEIGHT", 0);
 
             if (lists.getColors() == R.color.faded_red) {
-                backgroundColor.setLayoutParams(new RelativeLayout.LayoutParams((mScreenWidth * 20) / 100, mScreenHeight / 7));
+                backgroundColor.setLayoutParams(new RelativeLayout.LayoutParams((mScreenWidth * 58) / 100, mScreenHeight / 7));
             }
 
             if (lists.getColors() == R.color.warm_grey) {
-                backgroundColor.setLayoutParams(new RelativeLayout.LayoutParams((mScreenWidth * 40) / 100, mScreenHeight / 7));
+                backgroundColor.setLayoutParams(new RelativeLayout.LayoutParams((mScreenWidth * 68) / 100, mScreenHeight / 7));
 
             }
 
             if (lists.getColors() == R.color.cornflower_blue_65) {
-                backgroundColor.setLayoutParams(new RelativeLayout.LayoutParams((mScreenWidth * 60) / 100, mScreenHeight / 7));
+                backgroundColor.setLayoutParams(new RelativeLayout.LayoutParams((mScreenWidth * 78) / 100, mScreenHeight / 7));
 
             }
 
             if (lists.getColors() == R.color.light_sage) {
-                backgroundColor.setLayoutParams(new RelativeLayout.LayoutParams((mScreenWidth * 80) / 100, mScreenHeight / 7));
+                backgroundColor.setLayoutParams(new RelativeLayout.LayoutParams((mScreenWidth * 88) / 100, mScreenHeight / 7));
 
             }
 
