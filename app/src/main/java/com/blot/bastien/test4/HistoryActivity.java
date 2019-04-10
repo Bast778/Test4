@@ -1,4 +1,3 @@
-
 package com.blot.bastien.test4;
 
 import android.content.SharedPreferences;
@@ -44,19 +43,19 @@ public class HistoryActivity extends AppCompatActivity {
 
         System.out.println(hashString);
 
-            int index = 0;
-            for (TreeMap.Entry<String, String> entry2 : hashString.entrySet()) {
-                String cle = entry2.getKey();
-                String value = entry2.getValue();
-                Gson gson = new Gson();
-                Smile smile = gson.fromJson(value, Smile.class);
-                smile.setDay(cle);
-                strings.add(smile);
-                index++;
-                if(index >= 7){
-                    break;
-                }
+        int index = 0;
+        for (TreeMap.Entry<String, String> entry2 : hashString.entrySet()) {
+            String cle = entry2.getKey();
+            String value = entry2.getValue();
+            Gson gson = new Gson();
+            Smile smile = gson.fromJson(value, Smile.class);
+            smile.setDay(cle);
+            strings.add(smile);
+            index++;
+            if(index >= 7){
+                break;
             }
+        }
 
         //final ArrayAdapter<String> adapter = new ArrayAdapter<String>(HistoryActivity.this,
         //android.R.layout.simple_list_item_1, listmoods);
@@ -67,6 +66,8 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
 }
+
+
 
 
 

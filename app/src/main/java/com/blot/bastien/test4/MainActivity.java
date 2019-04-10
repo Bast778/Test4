@@ -1,4 +1,3 @@
-
 package com.blot.bastien.test4;
 
 import android.content.DialogInterface;
@@ -171,5 +170,6 @@ public class MainActivity extends AppCompatActivity {
         Smile.saveInt(MainActivity.this, SCREEN_HEIGHT, mScreenHeight);
     }
 }
+
 
 
