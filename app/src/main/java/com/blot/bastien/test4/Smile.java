@@ -14,11 +14,13 @@ public class Smile {
     private int colors;
     private int musics;
     private String day;
+    private String comment;
 
-    public Smile (int images, int colors, int musics){
+    public Smile (int images, int colors, int musics, String comment){
         this.images = images;
         this.colors = colors;
         this.musics = musics;
+        this.comment = comment;
     }
 
     public int getImages() {
@@ -45,6 +47,14 @@ public class Smile {
         this.day = day;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         return "Smile{" +
@@ -52,8 +62,10 @@ public class Smile {
                 ", colors=" + colors +
                 ", musics=" + musics +
                 ", day='" + day + '\'' +
+                ", comment='" + comment + '\'' +
                 '}';
     }
+
     //Enregistrement de la taille de l'ecran du smartphone
 
     private  static final String PREFS_NAME = "PRES_NAME";

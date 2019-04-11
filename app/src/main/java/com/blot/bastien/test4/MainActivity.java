@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private String SCREEN_WIDTH = "SCREEN_WIDTH";
     private int mScreenHeight;
     private String SCREEN_HEIGHT = "SCREEN_HEIGHT";
+    private MediaPlayer mediaPlayer = null;
+
 
 
 
@@ -48,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Creation des Smiley avec couleurs + images + musiques
         mTable = new Table();
-        final Smile happy = new Smile(R.drawable.smiley_happy, R.color.light_sage, R.raw.happy);
-        Smile superhappy = new Smile(R.drawable.smiley_super_happy, R.color.banana_yellow, R.raw.super_happy);
-        Smile sad = new Smile(R.drawable.smiley_sad, R.color.faded_red, R.raw.sad);
-        Smile normal = new Smile(R.drawable.smiley_normal, R.color.cornflower_blue_65, R.raw.normal);
-        Smile disappointed = new Smile(R.drawable.smiley_disappointed, R.color.warm_grey, R.raw.disappointed);
+        final Smile happy = new Smile(R.drawable.smiley_happy, R.color.light_sage, R.raw.happy,"");
+        Smile superhappy = new Smile(R.drawable.smiley_super_happy, R.color.banana_yellow, R.raw.super_happy,"");
+        Smile sad = new Smile(R.drawable.smiley_sad, R.color.faded_red, R.raw.sad,"");
+        Smile normal = new Smile(R.drawable.smiley_normal, R.color.cornflower_blue_65, R.raw.normal,"");
+        Smile disappointed = new Smile(R.drawable.smiley_disappointed, R.color.warm_grey, R.raw.disappointed,"");
         // Ajout des Smiley + couleurs + musiques dans la classe Smile
         mTable.addSmile(happy);
         mTable.addSmile(superhappy);
@@ -75,14 +77,15 @@ public class MainActivity extends AppCompatActivity {
                 String key = dateFormat.format(new Date(System.currentTimeMillis()));
                 Log.d(Tag, key);
                 Smile smile = mTable.smiles.get(position);
-                MediaPlayer.create(getApplicationContext(), smile.getMusics()).start();
+                mediaPlayer = MediaPlayer.create(getApplicationContext(), smile.getMusics());
+                mediaPlayer.start();
                 mPreferences.edit().putString(key, smile.tojson()).apply();
 
             }
 
 
             @Override
-            public void onPageScrollStateChanged(int i) {
+            public void onPageScrollStateChanged(int position) {
 
             }
         });

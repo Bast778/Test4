@@ -1,11 +1,8 @@
 package com.blot.bastien.test4;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,33 +67,27 @@ public class ListHistory extends ArrayAdapter {
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        Map<String, ?> allEntries = mPreferences.getAll();
-        Map<String, String> hashString = new TreeMap<>(Collections.reverseOrder());
+
+        final String preferenceComment = mPreferences.getString(lists.getDay() + "_comment",null);
+        System.out.println(preferenceComment);
+        lists.setComment(preferenceComment);
 
 
-        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-            if (entry.getKey().contains("_comment")) {
-                hashString.put(entry.getKey(), (String) entry.getValue());
-
-                for (TreeMap.Entry<String, String> entry2 : hashString.entrySet()) {
-                    String cle = entry2.getKey();
-                    String value = entry2.getValue();
-
-                    final String preferenceComment = value;
-
-                    moodComment.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(context, preferenceComment, Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-                    if (preferenceComment == null) {
-                        moodComment.setVisibility(View.GONE);
-                    }
-
-                }
+        moodComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, lists.getComment(), Toast.LENGTH_LONG).show();
             }
+        });
+
+        if (lists.getComment() == null) {
+            moodComment.setVisibility(View.GONE);
+        }
+
+
+
+
+
 
             final int mScreenWidth = Smile.loadInt(context, "SCREEN_WIDTH", 0);
             final int mScreenHeight = Smile.loadInt(context, "SCREEN_HEIGHT", 0);
@@ -123,7 +116,7 @@ public class ListHistory extends ArrayAdapter {
 
             }
 
-        }
+
         return convertView;
     }
 }
